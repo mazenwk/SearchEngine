@@ -24,19 +24,25 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="loading_page.cpp">
+    <ClCompile Include="main_page.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="page.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="results_page.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="loading_page.h">
+    <ClInclude Include="main_page.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="results_page.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="page.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,23 +4,20 @@
 
 #include "page.h"
 
-class loading_page : public page
+class main_page : public page
 {
 public:
 	void display() {
+		std::cout << "\n\n\n\n\n";
 		display_logo();
 		display_searchbar();
 	}
 
-	void read_input() {
-		set_cursor_pos(40, 8);
+	std::string get_search() {
+		set_cursor_pos(40, 13);
 		std::string search_query;
-		std::cin >> search_query;
-		search(search_query);
-	}
-
-	void search(std::string& query) {
-
+		std::getline(std::cin, search_query);
+		return search_query;
 	}
 
 private:
