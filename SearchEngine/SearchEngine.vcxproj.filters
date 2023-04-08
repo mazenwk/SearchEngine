@@ -19,6 +19,18 @@
     <Filter Include="Header Files\UI">
       <UniqueIdentifier>{aa683133-7210-4399-a99d-92e96e8f1b5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Models">
+      <UniqueIdentifier>{c55517ae-b481-486e-95b7-12633ebba9dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Models">
+      <UniqueIdentifier>{9e622765-2072-4521-90ab-0f9ca202493f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utilities">
+      <UniqueIdentifier>{84f15b85-5007-42de-84f9-01aef50d00c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utilities">
+      <UniqueIdentifier>{1df6191b-6957-4c74-8d9e-58a316d573df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,11 +39,23 @@
     <ClCompile Include="main_page.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="page.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="results_page.cpp">
       <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="page.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="web_graph.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="files_manager.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="web_graph_node.cpp">
+      <Filter>Source Files\Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,5 +68,28 @@
     <ClInclude Include="page.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="web_graph.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="files_manager.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="web_graph_node.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="websites.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="keywords.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="impressions.csv">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

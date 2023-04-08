@@ -6,44 +6,41 @@
 class page
 {
 public:
-	virtual void display() = 0;
+	/// <summary>
+	/// Outputs the input formatted to be centered in the console
+	/// </summary>
+	/// <param name="text">The text to output</param>
+	/// <remarks> Referenced from: https://stackoverflow.com/a/66896669 </remarks>
+	void cout_centered(std::string text);
 
-	void cout_centered(std::string text) {
-		// This function will only center the text if it is less than the length of the console!
-		// Otherwise it will just display it on the console without centering it.
+	/// <summary>
+	/// Outputs the input formatted to be bold in the console
+	/// </summary>
+	/// <param name="text">The text to output</param>
+	/// <param name="do_endl">Whether or not to end the line. True by default</param>
+	/// <remarks> Referenced from: https://stackoverflow.com/a/29997157 </remarks>
+	void cout_bold(std::string text, bool do_endl = true);
 
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // Get the console handle.
-		PCONSOLE_SCREEN_BUFFER_INFO lpScreenInfo = new CONSOLE_SCREEN_BUFFER_INFO(); // Create a pointer to the Screen Info pointing to a temporal screen info.
-		GetConsoleScreenBufferInfo(hConsole, lpScreenInfo); // Saves the console screen info into the lpScreenInfo pointer.
-		COORD NewSBSize = lpScreenInfo->dwSize; // Gets the size of the screen
-		if (NewSBSize.X > text.size()) {
-			int newpos = ((NewSBSize.X - text.size()) / 2); // Calculate the number of spaces to center the specific text.
-			for (int i = 0; i < newpos; i++) std::cout << " "; // Prints the spaces
-		}
-		std::cout << text << std::endl; // Prints the text centered :]
-	}
+	/// <summary>
+	/// Outputs the input formatted to be colored in the console
+	/// </summary>
+	/// <param name="text">The text to output</param>
+	/// <param name="color_code">The color to output the text in. White (15) by default</param>
+	/// <param name="do_endl">Whether or not to end the line. True by default</param>
+	/// <remarks> Referenced from: https://stackoverflow.com/a/4053879 </remarks>
+	void cout_colored(std::string text, int color_code = 15, bool do_endl = true);
 
-	void clear_page() {
-		COORD topLeft = { 0, 0 };
-		HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-		CONSOLE_SCREEN_BUFFER_INFO screen;
-		DWORD written;
+	/// <summary>
+	/// Clears the page (console)
+	/// </summary>
+	/// <remarks> Referenced from: https://stackoverflow.com/a/6487534 </remarks>
+	void clear_page();
 
-		GetConsoleScreenBufferInfo(console, &screen);
-		FillConsoleOutputCharacterA(
-			console, ' ', screen.dwSize.X * screen.dwSize.Y, topLeft, &written
-		);
-		FillConsoleOutputAttribute(
-			console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
-			screen.dwSize.X * screen.dwSize.Y, topLeft, &written
-		);
-		SetConsoleCursorPosition(console, topLeft);
-	}
-
-	void set_cursor_pos(int x, int y) {
-		COORD pos = { x, y };
-		HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleCursorPosition(output, pos);
-	}
+	/// <summary>
+	/// Sets the cursor position to the given coordinates
+	/// </summary>
+	/// <param name="x">Column number</param>
+	/// <param name="y">Row number</param>
+	/// <remarks> Referenced from: https://stackoverflow.com/a/6487534 </remarks>
+	void set_cursor_pos(int x, int y);
 };
-
