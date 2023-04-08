@@ -1,7 +1,7 @@
-﻿#include "main_page.h"
-#include "files_manager.h"
-#include "results_page.h"
-#include "web_graph.h"
+﻿#include "ui/main_page.h"
+#include "utilities/files_manager.h"
+#include "ui/results_page.h"
+#include "models/web_graph.h"
 #include <iostream>
 
 void printGraph(web_graph graph)
@@ -20,7 +20,7 @@ int main()
 {
 	web_graph wg;
 
-	auto data = files_manager::read_csv_file("websites.csv");
+	auto data = files_manager::read_csv_file("resources/websites.csv");
 
 	for (size_t i = 0; i < data.size(); i++)
 	{
@@ -29,6 +29,8 @@ int main()
 
 	printGraph(wg);
 
+	char c;
+	std::cin >> c;
 	return 0;
 
 	auto mp = main_page();
