@@ -5,8 +5,8 @@
 
 #include "files_manager.h"
 
-#include "../models/webpage.h"
-#include "../models/web_graph.h"
+#include "../Models/webpage.h"
+#include "../Models/web_graph.h"
 
 /// <summary>
 /// Initializer class. Intializes the webpages and webgraph.

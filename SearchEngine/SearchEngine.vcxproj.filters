@@ -42,7 +42,7 @@
     <ClCompile Include="ui\page.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="ui\result.cpp">
+    <ClCompile Include="ui\result_widget.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="ui\results_page.cpp">
@@ -63,6 +63,12 @@
     <ClCompile Include="Utilities\initializer.cpp">
       <Filter>Source Files\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="Utilities\search_engine.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\result.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ui\main_page.h">
@@ -71,7 +77,7 @@
     <ClInclude Include="ui\page.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="ui\result.h">
+    <ClInclude Include="ui\result_widget.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="ui\results_page.h">
@@ -91,6 +97,12 @@
     </ClInclude>
     <ClInclude Include="Utilities\initializer.h">
       <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\search_engine.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\result.h">
+      <Filter>Header Files\Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

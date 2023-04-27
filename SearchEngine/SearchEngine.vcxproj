@@ -128,26 +128,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Models\result.cpp" />
     <ClCompile Include="Models\webpage.cpp" />
     <ClCompile Include="Models\web_graph.cpp" />
     <ClCompile Include="Models\web_graph_node.cpp" />
     <ClCompile Include="ui\main_page.cpp" />
     <ClCompile Include="ui\page.cpp" />
-    <ClCompile Include="ui\result.cpp" />
+    <ClCompile Include="ui\result_widget.cpp" />
     <ClCompile Include="ui\results_page.cpp" />
     <ClCompile Include="Utilities\files_manager.cpp" />
     <ClCompile Include="Utilities\initializer.cpp" />
+    <ClCompile Include="Utilities\search_engine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Models\result.h" />
     <ClInclude Include="Models\webpage.h" />
     <ClInclude Include="Models\web_graph.h" />
     <ClInclude Include="Models\web_graph_node.h" />
     <ClInclude Include="ui\main_page.h" />
     <ClInclude Include="ui\page.h" />
-    <ClInclude Include="ui\result.h" />
+    <ClInclude Include="ui\result_widget.h" />
     <ClInclude Include="ui\results_page.h" />
     <ClInclude Include="Utilities\files_manager.h" />
     <ClInclude Include="Utilities\initializer.h" />
+    <ClInclude Include="Utilities\search_engine.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\impressions.csv" />

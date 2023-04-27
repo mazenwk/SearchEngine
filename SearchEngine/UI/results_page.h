@@ -1,7 +1,9 @@
 #pragma once
 #include "page.h"
-#include "result.h"
-#include "../models/web_graph.h"
+#include "result_widget.h"
+#include "../Models/web_graph.h"
+#include "../Models/result.h"
+#include "../Utilities/search_engine.h"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -9,31 +11,26 @@
 class results_page : public page
 {
 public:
-	results_page(web_graph wg)
-	{
-		current_wg = wg;
-	}
-
 	void search(const std::string query) {
 		clear_page();
 		current_query = query;
 
-		auto rs = { result("Result 1", { "word 1", "kw 1" }), result("Result 2", { "kw 2", "word 2" }) };
 
-		std::vector<result> results;
+		auto results = search_engine::search(current_query);
+		std::vector<result_widget> results_widgets;
 
-		for (size_t i = 0; i < current_wg.nodes.size(); i++)
+		for (size_t i = 0; i < results.size(); i++)
 		{
-			auto page = current_wg.nodes[i].page;
-			results.push_back(result(page.url, page.keywords));
+			// TODO: Add name property
+			results_widgets.push_back(result_widget(results[i]));
 		}
 
 		auto keywords = split_query(current_query);
 
-		display(current_query, results, keywords);
+		display(current_query, results_widgets, keywords);
 	}
 
-	void display(const std::string query, std::vector<result> results, std::vector<std::string> keywords)
+	void display(const std::string query, std::vector<result_widget> results, std::vector<std::string> keywords)
 	{
 		display_logo();
 		display_searchbar(query);
@@ -48,7 +45,6 @@ public:
 	}
 
 private:
-	web_graph current_wg;
 	std::string current_query;
 
 	std::vector<std::string> split_query(std::string query) {
