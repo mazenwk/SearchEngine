@@ -85,8 +85,25 @@ private:
 		for (const auto& website : websites) {
 			auto url = website[0];
 			auto page = webpage(url);
+			page.name = extract_name(url);
 			webpages.insert(std::make_pair(page.url, page));
 		}
+	}
+
+	static std::string extract_name(const std::string& url) {
+		// Find the beginning of the domain name.
+		size_t domain_start = url.find("www.") + 4;
+
+		// Find the end of the domain name.
+		size_t domain_end = url.find("/", domain_start);
+
+		// Extract the domain name.
+		std::string domain = url.substr(domain_start, domain_end - domain_start);
+
+		// Remove the .com/.net/.org from the domain name.
+		domain = domain.substr(0, domain.size() - 4);
+
+		return domain;
 	}
 
 	/// <summary>

@@ -5,6 +5,7 @@
 class webpage
 {
 public:
+	std::string name;
 	std::string url = "";
 	int impressions = 0;
 	std::vector<std::string> keywords = {};

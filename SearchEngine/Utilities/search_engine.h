@@ -34,7 +34,7 @@ private:
 			result res;
 
 			// TODO: Add name property
-			// res.name = 
+			res.name = page.name;
 			res.url = page.url;
 
 			for (auto keyword : page.keywords) {
