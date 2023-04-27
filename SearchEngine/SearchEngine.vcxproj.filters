@@ -54,7 +54,13 @@
     <ClCompile Include="Models\web_graph_node.cpp">
       <Filter>Source Files\Models</Filter>
     </ClCompile>
+    <ClCompile Include="Models\webpage.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
     <ClCompile Include="Utilities\files_manager.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\initializer.cpp">
       <Filter>Source Files\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,7 +83,13 @@
     <ClInclude Include="Models\web_graph_node.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
+    <ClInclude Include="Models\webpage.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
     <ClInclude Include="Utilities\files_manager.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\initializer.h">
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
   </ItemGroup>

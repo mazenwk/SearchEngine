@@ -2,11 +2,25 @@
 #include "web_graph_node.h"
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 class web_graph
 {
 public:
 	std::vector<web_graph_node> nodes;
+
+	void add_node(webpage page) {
+		if (!does_node_exist(page)) {
+			nodes.push_back(web_graph_node(page));
+		}
+		else {
+			for (auto& node : nodes) {
+				if (node.page == page) {
+					node.page = page;
+				}
+			}
+		}
+	}
 
 	void add_node(std::string u) {
 		if (!does_node_exist(u)) {
@@ -39,10 +53,32 @@ public:
 		}
 	}
 
+	void print_graph()
+	{
+		for (size_t i = 0; i < nodes.size(); i++)
+		{
+			std::cout << nodes[i].page.url << ' ';
+
+			for (auto node : nodes[i].edges)
+				std::cout << "-> " << node.page.url;
+			std::cout << std::endl;
+		}
+	}
+
 private:
-	bool does_node_exist(std::string& u) {
+	bool does_node_exist(webpage page) {
 		for (auto& node : nodes) {
-			if (node.value == u) {
+			if (node.page == page) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	bool does_node_exist(std::string& n) {
+		for (auto& node : nodes) {
+			if (node.page.url == n) {
 				return true;
 			}
 		}
