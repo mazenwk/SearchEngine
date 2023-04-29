@@ -22,7 +22,7 @@ int main()
 
 	auto mp = main_page();
 	mp.display();
-	auto query = mp.get_search();
+	auto query = mp.get_search_query();
 
 	auto rp = results_page();
 	rp.search(query);
