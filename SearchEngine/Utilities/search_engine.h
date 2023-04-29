@@ -29,24 +29,24 @@ private:
 	static std::vector<result> collect_results(const std::string& query) {
 		std::vector<result> collected_results;
 
-		for (const auto node : webgraph.nodes) {
-			auto page = node.page;
+		for (const auto node : webgraph.nodes()) {
+			auto page = node.page();
 			result res;
 
 			// TODO: Add name property
-			res.name = page.name;
-			res.url = page.url;
+			res.set_name(page.name());
+			res.set_url(page.url());
 
-			for (auto keyword : page.keywords) {
+			for (auto keyword : page.keywords()) {
 				if (is_keyword_relevant(query, keyword)) {
-					res.relevant_keywords.push_back(keyword);
+					res.add_relevant_keyword(keyword);
 				}
 				else {
-					res.irrelevant_keywords.push_back(keyword);
+					res.add_irrelevant_keyword(keyword);
 				}
 			}
 
-			if (res.relevant_keywords.size() != 0) {
+			if (res.relevant_keywords().size() != 0) {
 				collected_results.push_back(res);
 			}
 		}

@@ -38,7 +38,7 @@ public:
 
 		for (size_t i = 0; i < results.size(); i++)
 		{
-			results[i].display(i + 1, keywords);
+			results[i].display(static_cast<int>(i + 1), keywords);
 		}
 
 		get_input();

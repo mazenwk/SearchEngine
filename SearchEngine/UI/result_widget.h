@@ -39,8 +39,8 @@ private:
 	/// </summary>
 	void display_title(int index)
 	{
-		std::cout << "[" + std::to_string(index) + "] " + res.name + " ";
-		cout_colored('(' + res.url + ')', 9);
+		std::cout << "[" + std::to_string(index) + "] " + res.name() + " ";
+		cout_colored('(' + res.url() + ')', 9);
 	}
 
 	/// <summary>
@@ -51,11 +51,11 @@ private:
 	{
 		std::cout << " ";
 
-		for (const auto keyword : res.relevant_keywords)
+		for (const auto keyword : res.relevant_keywords())
 		{
 			cout_colored(keyword + '\t', 2, false);
 		}
-		for (const auto keyword : res.irrelevant_keywords) {
+		for (const auto keyword : res.irrelevant_keywords()) {
 			cout_colored(keyword + '\t', 8, false);
 		}
 

@@ -54,13 +54,13 @@ public:
 
 		// Add a node for each webpage
 		for (const auto& page : webpages) {
-			wg.add_node(page);
+			wg.add_webpage_node(page);
 		}
 
 		// Adds a new edge between each webpage and its links (redirects)
 		for (const auto& page : webpages) {
-			for (const auto& link : page.links) {
-				wg.add_edge(page.url, link);
+			for (const auto& link : page.links()) {
+				wg.add_webpage_edge(page.url(), link);
 			}
 		}
 
@@ -85,8 +85,8 @@ private:
 		for (const auto& website : websites) {
 			auto url = website[0];
 			auto page = webpage(url);
-			page.name = extract_name(url);
-			webpages.insert(std::make_pair(page.url, page));
+			page.set_name(extract_name(url));
+			webpages.insert(std::make_pair(page.url(), page));
 		}
 	}
 
@@ -122,12 +122,12 @@ private:
 
 			// If found update, otherwise add
 			if (webpages.find(url) != webpages.end()) {
-				webpages[url].impressions = std::stoi(impression[0]);
+				webpages[url].set_impressions(std::stoi(impression[0]));
 			}
 			else {
 				auto page = webpage(url);
-				webpages.insert(std::make_pair(page.url, page));
-				webpages[url].impressions = std::stoi(impression[0]);
+				webpages.insert(std::make_pair(page.url(), page));
+				webpages[url].set_impressions(std::stoi(impression[0]));
 			}
 		}
 	}
@@ -149,12 +149,12 @@ private:
 
 			// If found update, otherwise add
 			if (webpages.find(keywords[0]) != webpages.end()) {
-				webpages[url].keywords = keywords;
+				webpages[url].set_keywords(keywords);
 			}
 			else {
 				auto page = webpage(url);
-				webpages.insert(std::make_pair(page.url, page));
-				webpages[url].keywords = keywords;
+				webpages.insert(std::make_pair(page.url(), page));
+				webpages[url].set_keywords(keywords);
 			}
 		}
 	}
@@ -175,12 +175,12 @@ private:
 
 			// If found update, otherwise add
 			if (webpages.find(url) != webpages.end()) {
-				webpages[url].links.push_back(links[0]);
+				webpages[url].add_link(links[0]);
 			}
 			else {
 				auto page = webpage(url);
-				webpages.insert(std::make_pair(page.url, page));
-				webpages[url].links = links;
+				webpages.insert(std::make_pair(page.url(), page));
+				webpages[url].set_links(links);
 			}
 		}
 	}

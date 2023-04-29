@@ -1,74 +1,123 @@
 #pragma once
-#include "web_graph_node.h"
-#include <vector>
 #include <algorithm>
 #include <iostream>
+#include <vector>
 
+#include "web_graph_node.h"
+
+/// <summary>
+/// The web graph class. Used to represent webpage and the links within them as a directed graph
+/// </summary>
 class web_graph
 {
 public:
-	std::vector<web_graph_node> nodes;
+	/// <summary>
+	/// Default constructor
+	/// </summary>
+	web_graph() = default;
 
-	void add_node(webpage page) {
-		if (!does_node_exist(page)) {
-			nodes.push_back(web_graph_node(page));
+	/// <summary>
+	/// Gets the graph nodes. Each node represents a webpage
+	/// </summary>
+	/// <returns>The graph nodes</returns>
+	const std::vector<web_graph_node>& nodes() const { return nodes_; }
+
+	/// <summary>
+	/// Sets the graph nodes. Each node represents a webpage
+	/// </summary>
+	/// <param name="nodes">The new graph nodes</param>
+	void set_nodes(const std::vector<web_graph_node>& nodes) { nodes_ = nodes; }
+
+	/// <summary>
+	/// Adds a new webpage node to the graph
+	/// </summary>
+	/// <param name="page">The webpage to add</param>
+	void add_webpage_node(const webpage page) {
+		// If found update, otherwise add
+		if (!does_webpage_node_exist(page)) {
+			nodes_.push_back(web_graph_node(page));
 		}
 		else {
-			for (auto& node : nodes) {
-				if (node.page == page) {
-					node.page = page;
+			for (auto& node : nodes_) {
+				if (node.page() == page) {
+					node = web_graph_node(page);
 				}
 			}
 		}
 	}
 
-	void add_node(std::string u) {
-		if (!does_node_exist(u)) {
-			nodes.push_back(web_graph_node(u));
+	/// <summary>
+	/// Add a new webpage node to the graph. Not recommended to use this function, use the one with a webpage as a parameter
+	/// </summary>
+	/// <param name="u">The webpage url</param>
+	void add_webpage_node(const std::string u) {
+		if (!does_webpage_node_exist(u)) {
+			nodes_.push_back(web_graph_node(u));
 		}
 	}
 
-	void add_edge(std::string u, std::string v) {
-		if (does_edge_exist(u, v)) {
+	/// <summary>
+	/// Adds an edge between two webpage nodes. Searched by URL
+	/// </summary>
+	/// <param name="u">Node 1 URL</param>
+	/// <param name="v">Node 2 URL</param>
+	void add_webpage_edge(const std::string u, const std::string v) {
+		if (does_webpage_edge_exist(u, v)) {
 			return;
 		}
-		if (!does_node_exist(u))
+
+		// If found update, otherwise add
+		if (!does_webpage_node_exist(u))
 		{
-			add_node(u);
+			add_webpage_node(u);
 		}
-		if (!does_node_exist(v))
+		if (!does_webpage_node_exist(v))
 		{
-			add_node(v);
+			add_webpage_node(v);
 		}
 
-		int u_index = get_node_index(u);
+		int u_index = get_webpage_node_index(u);
 		if (u_index != -1) {
-			int v_index = get_node_index(v);
+			// If found update, otherwise add
+			int v_index = get_webpage_node_index(v);
 			if (v_index != -1) {
-				nodes[u_index].edges.push_back(nodes[v_index]);
+				nodes_[u_index].add_edge(nodes_[v_index]);
 			}
 			else {
-				nodes[u_index].edges.push_back(web_graph_node(v));
+				nodes_[u_index].add_edge(web_graph_node(v));
 			}
 		}
 	}
 
-	void print_graph()
+	/// <summary>
+	/// Prints the graph in a visual way
+	/// </summary>
+	void print_web_graph()
 	{
-		for (size_t i = 0; i < nodes.size(); i++)
+		for (size_t i = 0; i < nodes_.size(); i++)
 		{
-			std::cout << nodes[i].page.url << ' ';
+			std::cout << nodes_[i].page().url() << ' ';
 
-			for (auto node : nodes[i].edges)
-				std::cout << "-> " << node.page.url;
+			for (auto node : nodes_[i].edges())
+				std::cout << "-> " << node.page().url();
 			std::cout << std::endl;
 		}
 	}
 
 private:
-	bool does_node_exist(webpage page) {
-		for (auto& node : nodes) {
-			if (node.page == page) {
+	/// <summary>
+	/// The graph nodes. Each node represents a webpage
+	/// </summary>
+	std::vector<web_graph_node> nodes_{};
+
+	/// <summary>
+	/// Checks if the webpage node already exists
+	/// </summary>
+	/// <param name="page">The webpage to look for</param>
+	/// <returns>True if found, false otherwise</returns>
+	bool does_webpage_node_exist(const webpage page) {
+		for (auto& node : nodes_) {
+			if (node.page() == page) {
 				return true;
 			}
 		}
@@ -76,9 +125,14 @@ private:
 		return false;
 	}
 
-	bool does_node_exist(std::string& n) {
-		for (auto& node : nodes) {
-			if (node.page.url == n) {
+	/// <summary>
+	/// Checks if the webpage node already exists
+	/// </summary>
+	/// <param name="page">The webpage URL to look for</param>
+	/// <returns>True if found, false otherwise</returns>
+	bool does_webpage_node_exist(const std::string& u) {
+		for (auto& node : nodes_) {
+			if (node.page().url() == u) {
 				return true;
 			}
 		}
@@ -86,30 +140,41 @@ private:
 		return false;
 	}
 
-	bool does_edge_exist(std::string& u, std::string& v) {
+	/// <summary>
+	/// Checks if an edge exists between two webpage nodes. Searched by URL
+	/// </summary>
+	/// <param name="u">Node 1 URl</param>
+	/// <param name="v">Node 2 URL</param>
+	/// <returns>True if an edge exists, false otherwise</returns>
+	bool does_webpage_edge_exist(const std::string& u, const std::string& v) {
 		bool exists = false;
 
-		if (!does_node_exist(u) || !does_node_exist(v))
+		if (!does_webpage_node_exist(u) || !does_webpage_node_exist(v))
 		{
 			return false;
 		}
 
-		int u_index = get_node_index(u);
+		int u_index = get_webpage_node_index(u);
 		if (u_index != -1) {
-			auto u_edges = nodes[u_index].edges;
+			auto u_edges = nodes_[u_index].edges();
 			exists = std::find(u_edges.begin(), u_edges.end(), web_graph_node(v)) != u_edges.end();
 		}
 
 		return exists;
 	}
 
-	int get_node_index(std::string& u) {
+	/// <summary>
+	/// Gets the webpage node index from the webpage nodes list.
+	/// </summary>
+	/// <param name="u">The webpage URL to look for</param>
+	/// <returns>The index of the webpage node if found, otherwise returns -1</returns>
+	int get_webpage_node_index(const std::string& u) {
 		int index = -1;
 
-		auto it = std::find(nodes.begin(), nodes.end(), web_graph_node(u));
-		if (it != nodes.end())
+		auto it = std::find(nodes_.begin(), nodes_.end(), web_graph_node(u));
+		if (it != nodes_.end())
 		{
-			index = it - nodes.begin();
+			index = static_cast<int>(it - nodes_.begin());
 		}
 
 		return index;
