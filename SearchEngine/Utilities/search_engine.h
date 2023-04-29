@@ -1,11 +1,12 @@
 #pragma once
 #include <vector>
 #include <string>
+
 #include "../Models/result.h"
 #include "../Models/web_graph.h"
 
 /// <summary>
-/// The actual search engine manager class
+/// The actual search engine class
 /// </summary>
 class search_engine
 {
