@@ -43,6 +43,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{2d3aed4b-1e99-4d03-ab9b-3bd03ca8408d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -142,14 +145,17 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\impressions.csv">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Resources\keywords.csv">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Resources\websites.csv">
-      <Filter>Resource Files</Filter>
-    </None>
+    <Text Include="Resources\impressions.csv">
+      <Filter>Resources</Filter>
+    </Text>
+    <Text Include="Resources\websites.csv">
+      <Filter>Resources</Filter>
+    </Text>
+    <Text Include="Resources\keywords.csv">
+      <Filter>Resources</Filter>
+    </Text>
+    <Text Include="Resources\urls.csv">
+      <Filter>Resources</Filter>
+    </Text>
   </ItemGroup>
 </Project>

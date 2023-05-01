@@ -10,32 +10,18 @@
 #include "events/event.h"
 #include "events/update_webgraph_event_listener.h"
 
-#include <json/json.h>
-#include <iostream>
-
 int main()
 {
-	Json::Value root;
-	Json::Value data;
-	root["action"] = "run";
-	data["number"] = 1;
-	root["data"] = data;
+	//return EXIT_SUCCESS;
 
-	Json::StreamWriterBuilder builder;
-	const std::string json_file = Json::writeString(builder, root);
-	std::cout << json_file << std::endl;
+	//event update_webgrapgh_event;
+	//update_webgraph_event_listener update_listener;
 
-	return EXIT_SUCCESS;
+	//update_webgrapgh_event.attach(&update_listener);
 
+	//update_webgrapgh_event.trigger();
 
-	event update_webgrapgh_event;
-	update_webgraph_event_listener update_listener;
-
-	update_webgrapgh_event.attach(&update_listener);
-
-	update_webgrapgh_event.trigger();
-
-	return 0;
+	//return 0;
 
 	// TOOD: Check files existence before launching
 	/* TODO
@@ -45,6 +31,7 @@ int main()
 
 	auto wps = initializer::initalize_webpages();
 	auto wg = initializer::initialize_web_graph(wps);
+	//wg.print_web_graph();
 	search_engine::set_web_graph(wg);
 
 	auto mp = main_page();

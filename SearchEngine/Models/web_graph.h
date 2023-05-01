@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <iostream>
+#include <map>
 #include <vector>
 
 #include "web_graph_node.h"
@@ -17,42 +18,37 @@ public:
 	web_graph() = default;
 
 	/// <summary>
-	/// Gets the graph nodes. Each node represents a webpage
+	/// Gets the graph nodes map. Each node represents a key value pair of <url,webpage>
 	/// </summary>
-	/// <returns>The graph nodes</returns>
-	const std::vector<web_graph_node>& nodes() const { return nodes_; }
+	/// <returns>The graph nodes map</returns>
+	const std::map<std::string, web_graph_node>& nodes() const { return nodes_map_; }
 
 	/// <summary>
-	/// Sets the graph nodes. Each node represents a webpage
+	/// Sets the graph nodes in the nodes map. Each node represents a webpage
 	/// </summary>
 	/// <param name="nodes">The new graph nodes</param>
-	void set_nodes(const std::vector<web_graph_node>& nodes) { nodes_ = nodes; }
-
-	/// <summary>
-	/// Adds a new webpage node to the graph
-	/// </summary>
-	/// <param name="page">The webpage to add</param>
-	void add_webpage_node(const webpage page) {
-		// If found update, otherwise add
-		if (!does_webpage_node_exist(page)) {
-			nodes_.push_back(web_graph_node(page));
-		}
-		else {
-			for (auto& node : nodes_) {
-				if (node.page() == page) {
-					node = web_graph_node(page);
-				}
-			}
+	void set_nodes(const std::vector<web_graph_node>& nodes) { 
+		for (const auto node : nodes) {
+			nodes_map_[node.page().url()] = node;
 		}
 	}
 
 	/// <summary>
-	/// Add a new webpage node to the graph. Not recommended to use this function, use the one with a webpage as a parameter
+	/// Adds a new webpage node to the graph map
+	/// </summary>
+	/// <param name="page">The webpage to add</param>
+	void add_webpage_node(const webpage page) {
+		// TODO update all to getX()
+		nodes_map_[page.url()] = web_graph_node(page);
+	}
+
+	/// <summary>
+	/// Add a new webpage node to the graph map. Not recommended to use this function, use the one with a webpage as a parameter
 	/// </summary>
 	/// <param name="u">The webpage url</param>
 	void add_webpage_node(const std::string u) {
 		if (!does_webpage_node_exist(u)) {
-			nodes_.push_back(web_graph_node(u));
+			nodes_map_[u] = web_graph_node(u);
 		}
 	}
 
@@ -71,21 +67,11 @@ public:
 		{
 			add_webpage_node(u);
 		}
-		if (!does_webpage_node_exist(v))
-		{
-			add_webpage_node(v);
+		if (does_webpage_node_exist(v)) {
+			nodes_map_[u].add_edge(nodes_map_[v]);
 		}
-
-		int u_index = get_webpage_node_index(u);
-		if (u_index != -1) {
-			// If found update, otherwise add
-			int v_index = get_webpage_node_index(v);
-			if (v_index != -1) {
-				nodes_[u_index].add_edge(nodes_[v_index]);
-			}
-			else {
-				nodes_[u_index].add_edge(web_graph_node(v));
-			}
+		else {
+			nodes_map_[u].add_edge(web_graph_node(v));
 		}
 	}
 
@@ -94,50 +80,29 @@ public:
 	/// </summary>
 	void print_web_graph()
 	{
-		for (size_t i = 0; i < nodes_.size(); i++)
-		{
-			std::cout << nodes_[i].page().url() << ' ';
-
-			for (auto node : nodes_[i].edges())
-				std::cout << "-> " << node.page().url();
+		for (const auto kvp : nodes_map_) {
+			const auto node = kvp.second;
+			std::cout << node.page().url() << ' ';
+			
+			for (auto edge : node.edges())
+				std::cout << "-> " << edge.page().url();
 			std::cout << std::endl;
 		}
 	}
 
 private:
 	/// <summary>
-	/// The graph nodes. Each node represents a webpage
+	/// The graph nodes map. Each node represents a key value pair of a url and a webpage
 	/// </summary>
-	std::vector<web_graph_node> nodes_{};
+	std::map<std::string, web_graph_node> nodes_map_{};
 
 	/// <summary>
-	/// Checks if the webpage node already exists
+	/// Checks whetehr or not a webpage node exists
 	/// </summary>
-	/// <param name="page">The webpage to look for</param>
-	/// <returns>True if found, false otherwise</returns>
-	bool does_webpage_node_exist(const webpage page) {
-		for (auto& node : nodes_) {
-			if (node.page() == page) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/// <summary>
-	/// Checks if the webpage node already exists
-	/// </summary>
-	/// <param name="page">The webpage URL to look for</param>
-	/// <returns>True if found, false otherwise</returns>
-	bool does_webpage_node_exist(const std::string& u) {
-		for (auto& node : nodes_) {
-			if (node.page().url() == u) {
-				return true;
-			}
-		}
-
-		return false;
+	/// <param name="u">The webpage URL, acts as a key</param>
+	/// <returns>True if the node exists, false otherwise</returns>
+	bool does_webpage_node_exist(std::string u) {
+		return !(nodes_map_.find(u) == nodes_map_.end());
 	}
 
 	/// <summary>
@@ -149,34 +114,11 @@ private:
 	bool does_webpage_edge_exist(const std::string& u, const std::string& v) {
 		bool exists = false;
 
-		if (!does_webpage_node_exist(u) || !does_webpage_node_exist(v))
-		{
-			return false;
-		}
-
-		int u_index = get_webpage_node_index(u);
-		if (u_index != -1) {
-			auto u_edges = nodes_[u_index].edges();
+		if (does_webpage_node_exist(u) && does_webpage_node_exist(v)) {
+			auto u_edges = nodes_map_[u].edges();
 			exists = std::find(u_edges.begin(), u_edges.end(), web_graph_node(v)) != u_edges.end();
 		}
 
 		return exists;
-	}
-
-	/// <summary>
-	/// Gets the webpage node index from the webpage nodes list.
-	/// </summary>
-	/// <param name="u">The webpage URL to look for</param>
-	/// <returns>The index of the webpage node if found, otherwise returns -1</returns>
-	int get_webpage_node_index(const std::string& u) {
-		int index = -1;
-
-		auto it = std::find(nodes_.begin(), nodes_.end(), web_graph_node(u));
-		if (it != nodes_.end())
-		{
-			index = static_cast<int>(it - nodes_.begin());
-		}
-
-		return index;
 	}
 };

@@ -52,7 +52,7 @@ private:
 	/// <summary>
 	/// The maximum number of results displayd per page
 	/// </summary>
-	int max_results_per_page;
+	int max_results_per_page = 5;
 
 	/// <summary>
 	/// Displays the results page

@@ -30,7 +30,8 @@ private:
 	static std::vector<result> collect_results(const std::string& query) {
 		std::vector<result> collected_results;
 
-		for (const auto node : webgraph.nodes()) {
+		for (const auto kvp : webgraph.nodes()) {
+			auto node = kvp.second;
 			auto page = node.page();
 			result res;
 
