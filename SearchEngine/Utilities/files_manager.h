@@ -40,5 +40,9 @@ namespace files_manager {
 
 		return data;
 	}
+
+	static void write_csv_file(const std::string& file_name, const std::string content) {
+
+	}
 }
 

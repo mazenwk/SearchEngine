@@ -7,9 +7,22 @@
 #include "ui/main_page.h"
 #include "ui/results_page.h"
 
+#include "events/event.h"
+#include "events/update_webgraph_event_listener.h"
+
+
 
 int main()
 {
+	event update_webgrapgh_event;
+	update_webgraph_event_listener update_listener;
+
+	update_webgrapgh_event.attach(&update_listener);
+
+	update_webgrapgh_event.trigger();
+
+	return 0;
+
 	// TOOD: Check files existence before launching
 	/* TODO
 	Consider adding support for different types of queries.
