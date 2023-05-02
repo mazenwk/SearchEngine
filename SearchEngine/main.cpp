@@ -14,6 +14,7 @@ int main()
 {
 	//return EXIT_SUCCESS;
 
+	// I don't remember why i implemented an events class. I had an idea and next day i forgot about it
 	//event update_webgrapgh_event;
 	//update_webgraph_event_listener update_listener;
 
