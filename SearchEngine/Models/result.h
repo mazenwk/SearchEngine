@@ -29,7 +29,7 @@ public:
 	/// <summary>
 	/// Returns the result website name
 	/// </summary>
-	std::string name() const { return name_; }
+	std::string get_name() const { return name_; }
 
 	/// <summary>
 	/// Sets the result website name
@@ -40,7 +40,7 @@ public:
 	/// <summary>
 	/// Returns the result website URL
 	/// </summary>
-	std::string url() const { return url_; }
+	std::string get_url() const { return url_; }
 
 	/// <summary>
 	/// Sets the result website URL
@@ -51,7 +51,7 @@ public:
 	/// <summary>
 	/// Returns the result website relevant keywords
 	/// </summary>
-	std::vector<std::string> relevant_keywords() const { return relevant_keywords_; }
+	std::vector<std::string> get_relevant_keywords() const { return relevant_keywords_; }
 
 	/// <summary>
 	/// Adds a relevant keyword to the result
@@ -68,7 +68,7 @@ public:
 	/// <summary>
 	/// Returns the result website irrelevant keywords
 	/// </summary>
-	std::vector<std::string> irrelevant_keywords() const { return irrelevant_keywords_; }
+	std::vector<std::string> get_irrelevant_keywords() const { return irrelevant_keywords_; }
 
 	/// <summary>
 	/// Adds an irrelevant keyword to the result

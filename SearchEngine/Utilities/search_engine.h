@@ -30,17 +30,21 @@ private:
 	static std::vector<result> collect_results(const std::string& query) {
 		std::vector<result> collected_results;
 
-		for (const auto kvp : webgraph.nodes()) {
+		for (const auto kvp : webgraph.get_nodes_map()) {
 			auto node = kvp.second;
-			auto page = node.page();
+			auto page = node.get_page();
+
+			if (!page.get_webpage_relevancy(query)) {
+				continue;
+			}
+
 			result res;
 
-			// TODO: Add name property
-			res.set_name(page.name());
-			res.set_url(page.url());
+			res.set_name(page.get_name());
+			res.set_url(page.get_url());
 
-			for (auto keyword : page.keywords()) {
-				if (is_keyword_relevant(query, keyword)) {
+			for (auto keyword : page.get_keywords()) {
+				if (is_keyword_relevant(keyword, query)) {
 					res.add_relevant_keyword(keyword);
 				}
 				else {
@@ -48,15 +52,13 @@ private:
 				}
 			}
 
-			if (res.relevant_keywords().size() != 0) {
-				collected_results.push_back(res);
-			}
+			collected_results.push_back(res);
 		}
 
 		return collected_results;
 	};
 
-	static bool is_keyword_relevant(const std::string query, const std::string keyword) {
+	static bool is_keyword_relevant(const std::string keyword, const std::string query) {
 		// Search for the keyword in the query
 		size_t pos = query.find(keyword);
 		bool relevant = pos != std::string::npos;

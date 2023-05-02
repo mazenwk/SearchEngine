@@ -59,8 +59,8 @@ public:
 
 		// Adds a new edge between each webpage and its links (redirects)
 		for (const auto& page : webpages) {
-			for (const auto& link : page.links()) {
-				wg.add_webpage_edge(page.url(), link);
+			for (const auto& link : page.get_links()) {
+				wg.add_webpage_edge(page.get_url(), link);
 			}
 		}
 
@@ -85,8 +85,10 @@ private:
 		for (const auto& website : websites) {
 			auto url = website[0];
 			auto page = webpage(url);
-			page.set_name(extract_name(url));
-			webpages.insert(std::make_pair(page.url(), page));
+			auto name = extract_name(url);
+			name[0] = std::toupper(name[0]);
+			page.set_name(name);
+			webpages.insert(std::make_pair(page.get_url(), page));
 		}
 	}
 
@@ -126,7 +128,7 @@ private:
 			}
 			else {
 				auto page = webpage(url);
-				webpages.insert(std::make_pair(page.url(), page));
+				webpages.insert(std::make_pair(page.get_url(), page));
 				webpages[url].set_impressions(std::stoi(impression[0]));
 			}
 		}
@@ -153,7 +155,7 @@ private:
 			}
 			else {
 				auto page = webpage(url);
-				webpages.insert(std::make_pair(page.url(), page));
+				webpages.insert(std::make_pair(page.get_url(), page));
 				webpages[url].set_keywords(keywords);
 			}
 		}
@@ -179,7 +181,7 @@ private:
 			}
 			else {
 				auto page = webpage(url);
-				webpages.insert(std::make_pair(page.url(), page));
+				webpages.insert(std::make_pair(page.get_url(), page));
 				webpages[url].set_links(links);
 			}
 		}

@@ -44,8 +44,8 @@ private:
 	/// </summary>
 	void display_title(int index)
 	{
-		std::cout << "[" + std::to_string(index) + "] " + res_.name() + " ";
-		cout_colored('(' + res_.url() + ')', color_code::BLUE);
+		std::cout << "[" + std::to_string(index) + "] " + res_.get_name() + " ";
+		cout_colored('(' + res_.get_url() + ')', color_code::BLUE);
 	}
 
 	/// <summary>
@@ -56,11 +56,11 @@ private:
 	{
 		std::cout << " ";
 
-		for (const auto keyword : res_.relevant_keywords())
+		for (const auto keyword : res_.get_relevant_keywords())
 		{
 			cout_colored(keyword + '\t', color_code::DARK_GREEN, false);
 		}
-		for (const auto keyword : res_.irrelevant_keywords()) {
+		for (const auto keyword : res_.get_irrelevant_keywords()) {
 			cout_colored(keyword + '\t', color_code::DARK_GRAY, false);
 		}
 

@@ -33,7 +33,7 @@ public:
 	/// <param name="node">The webpage node to compare to</param>
 	/// <returns>True if they are equal, false otherwise</returns>
 	bool operator==(const web_graph_node& node) const {
-		return page_.url() == node.page_.url();
+		return page_.get_url() == node.page_.get_url();
 	}
 
 	/// <summary>
@@ -42,14 +42,14 @@ public:
 	/// <param name="node">The webpage node to compare to</param>
 	/// <returns>True if they are not equal, false otherwise</returns>
 	bool operator!=(const web_graph_node& node) const {
-		return page_.url() != node.page_.url();
+		return page_.get_url() != node.page_.get_url();
 	}
 
 	/// <summary>
 	/// Gets the webpage info
 	/// </summary>
 	/// <returns>The webpage info</returns>
-	webpage page() const { return page_; }
+	webpage get_page() const { return page_; }
 
 	/// <summary>
 	/// Sets the webpage info
@@ -61,7 +61,7 @@ public:
 	/// Gets the list of nodes connected to this node
 	/// </summary>
 	/// <returns>The list of connected nodes</returns>
-	std::vector<web_graph_node> edges() const { return edges_; }
+	std::vector<web_graph_node> get_edges() const { return edges_; }
 
 	/// <summary>
 	/// Adds an edge to the list of nodes connected to this node.
