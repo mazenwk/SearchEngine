@@ -125,55 +125,6 @@ public:
 	/// <returns>The webpage score. Used for sorting</returns>
 	int get_webpage_score() {}
 
-	/// <summary>
-	/// Returns whether or not the current webpage is relevant to the given words by searching through its keywords for a match.
-	/// Checks for OR and AND operations (on words, not entire phrases) and validates relevancy based on them
-	/// </summary>
-	/// <param name="words">The words to look for in the webpage</param>
-	/// <returns>True if the current webpage is relevant, false otherwise</returns>
-	bool get_webpage_relevancy(const std::string& query) {
-		// Split query into vector of words and convert to lowercase
-		std::vector<std::string> words;
-		std::stringstream ss(query);
-		std::string word;
-		while (getline(ss, word, ' ')) {
-			std::transform(word.begin(), word.end(), word.begin(), ::tolower);
-			words.push_back(word);
-		}
-
-		// Get AND keywords
-		std::unordered_set<std::string> and_keywords;
-		int and_index = find_string_index(words, "and");
-		while (and_index != -1) {
-			if (and_index != 0 && and_index != words.size() - 1) {
-				and_keywords.insert(words[and_index - 1]);
-				and_keywords.insert(words[and_index + 1]);
-			}
-			words.erase(words.begin() + and_index);
-			and_index = find_string_index(words, "and");
-		}
-
-		// Set of keywords. Used for quickly counting / searching
-		std::unordered_set<std::string> keywords_set(keywords_.begin(), keywords_.end());
-
-		// Check if all AND keywords exist
-		for (const auto& keyword : and_keywords) {
-			if (keywords_set.count(keyword) <= 0) {
-				return false;
-			}
-		}
-
-		// If code reaches this point then it must be an OR (by default) operation
-		// Check if any word exists in the keywords set
-		for (auto& word : words) {
-			if (keywords_set.count(word) > 0) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
 private:
 	/// <summary>
 	/// The webpage name
@@ -199,18 +150,5 @@ private:
 	/// The links inside the webpage
 	/// </summary>
 	std::vector<std::string> links_ = {};
-
-	/// <summary>
-	/// Gets the index of the target string in the given vector
-	/// <param name="vec">The vector to search through</param>
-	/// <param name="str">The string to search for</param>
-	/// <returns>The index of the string if found, -1 otherwise</returns>
-	int find_string_index(const std::vector<std::string>& vec, const std::string& str) {
-		auto iter = std::find(vec.begin(), vec.end(), str);
-		if (iter != vec.end()) {
-			return static_cast<int>(std::distance(vec.begin(), iter));
-		}
-		return -1;
-	}
 };
 
