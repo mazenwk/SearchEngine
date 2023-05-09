@@ -142,6 +142,7 @@
     <ClCompile Include="ui\page.cpp" />
     <ClCompile Include="ui\result_widget.cpp" />
     <ClCompile Include="ui\results_page.cpp" />
+    <ClCompile Include="UI\webpage_page.cpp" />
     <ClCompile Include="Utilities\files_manager.cpp" />
     <ClCompile Include="Utilities\initializer.cpp" />
     <ClCompile Include="Utilities\search_engine.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="ui\page.h" />
     <ClInclude Include="ui\result_widget.h" />
     <ClInclude Include="ui\results_page.h" />
+    <ClInclude Include="UI\webpage_page.h" />
     <ClInclude Include="Utilities\files_manager.h" />
     <ClInclude Include="Utilities\initializer.h" />
     <ClInclude Include="Utilities\search_engine.h" />

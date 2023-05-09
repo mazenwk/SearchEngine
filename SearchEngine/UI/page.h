@@ -1,6 +1,7 @@
 #pragma once
 #include <windows.h>
 #include <iostream>
+#include <vector>
 #include <string>
 
 /// <summary>
@@ -117,5 +118,91 @@ public:
 		COORD pos = { x, y };
 		HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleCursorPosition(output, pos);
+	}
+
+	/// <summary>
+	/// Outputs a stylized word to the console with a custom font
+	/// </summary>
+	/// <param name="word">The word to output</param>
+	void cout_stylized_word(const std::string& word) {
+		for (const char letter : word) {
+			auto stylized_letter = get_stylized_letter(letter);
+			for (const auto line : stylized_letter) {
+				std::cout << line << '\n';
+			}
+		}
+	}
+
+private:
+	/// <summary>
+	/// Gets the stylized equivalent of a letter
+	/// </summary>
+	/// <param name="c">The letter to get the stylized equivalent of</param>
+	/// <returns></returns>
+	std::vector<std::string> get_stylized_letter(const char& c) {
+		std::vector<std::string> letters;
+
+		switch (toupper(c)) {
+		case 'A':
+			letters = {
+				"    _      ",
+				"   /_\\     ",
+				"  / _ \\    ",
+				" /_/ \\_\\   "
+			};
+			break;
+		case 'B':
+			break;
+		case 'C':
+			break;
+		case 'D':
+			break;
+		case 'E':
+			break;
+		case 'F':
+			break;
+		case 'G':
+			break;
+		case 'H':
+			break;
+		case 'I':
+			break;
+		case 'J':
+			break;
+		case 'K':
+			break;
+		case 'L':
+			break;
+		case 'M':
+			break;
+		case 'N':
+			break;
+		case 'O':
+			break;
+		case 'P':
+			break;
+		case 'Q':
+			break;
+		case 'R':
+			break;
+		case 'S':
+			break;
+		case 'T':
+			break;
+		case 'U':
+			break;
+		case 'V':
+			break;
+		case 'W':
+			break;
+		case 'X':
+			break;
+		case 'Y':
+			break;
+		case 'Z':
+			break;
+		}
+
+		return letters;
 	}
 };

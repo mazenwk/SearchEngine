@@ -96,6 +96,9 @@
     <ClCompile Include="Events\update_webgraph_event_listener.cpp">
       <Filter>Source Files\Events</Filter>
     </ClCompile>
+    <ClCompile Include="UI\webpage_page.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ui\main_page.h">
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="Events\update_webgraph_event_listener.h">
       <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\webpage_page.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
