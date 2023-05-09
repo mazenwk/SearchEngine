@@ -31,16 +31,9 @@ public:
 		current_query = query;
 
 		// Searches for actual results
-		auto results = search_engine::search(current_query);
+		current_results = search_engine::search(current_query);
 
-		// Creates a new result widget for each result found
-		std::vector<result_widget> results_widgets;
-		for (size_t i = 0; i < results.size(); i++)
-		{
-			results_widgets.push_back(result_widget(results[i]));
-		}
-
-		display(current_query, results_widgets);
+		display(current_query, current_results);
 	}
 
 private:
@@ -54,26 +47,40 @@ private:
 	/// </summary>
 	int max_results_per_page = 5;
 
+	std::vector<result> current_results;
+
 	/// <summary>
 	/// Displays the results page
 	/// </summary>
 	/// <param name="query">The original search query</param>
 	/// <param name="results">The list of results</param>
-	void display(const std::string query, std::vector<result_widget> results)
+	void display(const std::string query, std::vector<result> results)
 	{
-		display_logo();
-		display_searchbar(query);
-		display_toolbar(static_cast<int>(results.size()));
+		display_menu(query, static_cast<int>(results.size()));
+
+		// Creates a new result widget for each result found
+		std::vector<result_widget> results_widgets;
+		for (size_t i = 0; i < results.size(); i++)
+		{
+			results_widgets.push_back(result_widget(results[i]));
+		}
 
 		// Extracts the keywords for highlighting the relevant keywords
 		auto keywords = split_query(current_query);
+
 		// TOOD: Split into pages after exceeding maximum
-		for (size_t i = 0; i < results.size(); i++)
+		for (size_t i = 0; i < results_widgets.size(); i++)
 		{
-			results[i].display(static_cast<int>(i + 1), keywords);
+			results_widgets[i].display(static_cast<int>(i + 1), keywords);
 		}
 
 		get_input();
+	}
+
+	void display_menu(const std::string& query, const int results_count) {
+		display_logo();
+		display_searchbar(query);
+		display_toolbar(results_count);
 	}
 
 	/// <summary>
@@ -165,6 +172,7 @@ private:
 		switch (c)
 		{
 		case 's':
+			current_results.clear();
 			set_cursor_at_searchbar();
 
 			do {
@@ -177,7 +185,19 @@ private:
 			clear_page();
 			exit(0);
 			break;
+		case 'b':
+			clear_page();
+			display(current_query, current_results);
+			get_input();
+			break;
 		default:
+			if (std::isdigit(c)) {
+				int result_index = c - '1';
+				if (result_index < current_results.size()) {
+					search_engine::display_webpage(current_results[result_index].get_url());
+					get_input();
+				}
+			}
 			break;
 		}
 	}

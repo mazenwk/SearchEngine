@@ -5,6 +5,8 @@
 #include "../Models/result.h"
 #include "../Models/web_graph.h"
 
+#include "../UI/webpage_page.h"
+
 /// <summary>
 /// Boolean Search Types
 /// </summary>
@@ -40,6 +42,12 @@ public:
 		results = rank_results(results);
 
 		return results;
+	}
+
+	static void display_webpage(const std::string& url) {
+		auto page = webgraph.get_webpage_info(url);
+		webpage_page wbp(page);
+		wbp.display();
 	}
 
 private:
@@ -166,25 +174,25 @@ private:
 	/// <returns>True if the evaluation of the statement is true, false otherwise</returns>
 	static bool evaluate_bsearch(const bsearch_type type, const std::unordered_set<std::string>& keywords, const std::vector<std::string>& words) {
 		switch (type) {
-			case bsearch_type::AND: {
-				for (const std::string& word : words) {
-					if (keywords.find(word) == keywords.end()) {
-						return false; // Some word is not found
-					}
+		case bsearch_type::AND: {
+			for (const std::string& word : words) {
+				if (keywords.find(word) == keywords.end()) {
+					return false; // Some word is not found
 				}
-				return true; // All words are found
 			}
-			case bsearch_type::OR: {
-				for (const std::string& word : words) {
-					if (keywords.find(word) != keywords.end()) {
-						return true; // Some word is found
-					}
+			return true; // All words are found
+		}
+		case bsearch_type::OR: {
+			for (const std::string& word : words) {
+				if (keywords.find(word) != keywords.end()) {
+					return true; // Some word is found
 				}
-				return false; // No word was found
 			}
-			case bsearch_type::QUOTE: {
-				return keywords.find(words[0]) != keywords.end();
-			}
+			return false; // No word was found
+		}
+		case bsearch_type::QUOTE: {
+			return keywords.find(words[0]) != keywords.end();
+		}
 		}
 
 		return false; // Invalid bsearch_type

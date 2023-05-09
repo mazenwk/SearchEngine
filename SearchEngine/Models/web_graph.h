@@ -75,6 +75,10 @@ public:
 		}
 	}
 
+	webpage get_webpage_info(const std::string& url) {
+		return nodes_map_[url].get_page();
+	}
+
 	/// <summary>
 	/// Prints the graph in a visual way
 	/// </summary>

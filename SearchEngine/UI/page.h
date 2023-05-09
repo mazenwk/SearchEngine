@@ -125,11 +125,27 @@ public:
 	/// </summary>
 	/// <param name="word">The word to output</param>
 	void cout_stylized_word(const std::string& word) {
+		std::vector<std::vector<std::string>> stylized_word;
 		for (const char letter : word) {
-			auto stylized_letter = get_stylized_letter(letter);
-			for (const auto line : stylized_letter) {
-				std::cout << line << '\n';
+			stylized_word.push_back(get_stylized_letter(letter));
+		}
+
+		// Transpose the array
+		std::vector<std::vector<std::string>> transposed_word;
+		for (size_t col = 0; col < stylized_word[col].size(); ++col) {
+			std::vector<std::string> column;
+			for (size_t row = 0; row < stylized_word.size(); ++row) {
+				column.push_back(stylized_word[row][col]);
 			}
+			transposed_word.push_back(column);
+		}
+
+		// Print each column
+		for (const auto& column : transposed_word) {
+			for (const auto& element : column) {
+				std::cout << element << ' ';
+			}
+			std::cout << std::endl;
 		}
 	}
 
@@ -140,69 +156,299 @@ private:
 	/// <param name="c">The letter to get the stylized equivalent of</param>
 	/// <returns></returns>
 	std::vector<std::string> get_stylized_letter(const char& c) {
-		std::vector<std::string> letters;
+		std::vector<std::string> characters;
 
 		switch (toupper(c)) {
 		case 'A':
-			letters = {
-				"    _      ",
-				"   /_\\     ",
-				"  / _ \\    ",
-				" /_/ \\_\\   "
+			characters = {
+				"    _   ",
+				"   /_\\  ",
+				"  / _ \\ ",
+				" /_/ \\_\\"
 			};
 			break;
 		case 'B':
+			characters = {
+				"  ___ ",
+				" | _ )",
+				" | _ \\",
+				" |___/",
+			};
 			break;
 		case 'C':
+			characters = {
+				"   ___ ",
+				"  / __|",
+				" | (__ ",
+				"  \\___|",
+			};
 			break;
 		case 'D':
+			characters = {
+				"  ___  ",
+				" |   \\ ",
+				" | |) |",
+				" |___/ ",
+			};
 			break;
 		case 'E':
+			characters = {
+				"  ___  ",
+				" | __| ",
+				" | _|  ",
+				" |___| ",
+			};
 			break;
 		case 'F':
+			characters = {
+				"  ___ ",
+				" | __|",
+				" | _| ",
+				" |_|  ",
+			};
 			break;
 		case 'G':
+			characters = {
+				"    __ ",
+				"  / __|",
+				" | (_  ",
+				"  \\___|",
+			};
 			break;
 		case 'H':
+			characters = {
+				"  _  _ ",
+				" | || |",
+				" | __ |",
+				" |_||_|",
+			};
 			break;
 		case 'I':
+			characters = {
+				"  ___ ",
+				" |_ _|",
+				"  | | ",
+				" |___|",
+			};
 			break;
 		case 'J':
+			characters = {
+				"     _ ",
+				"  _ | |",
+				" | || |",
+				"  \\__/ ",
+			};
 			break;
 		case 'K':
+			characters = {
+				"  _  __",
+				" | |/ /",
+				" | ' < ",
+				" |_|\\_\\",
+			};
 			break;
 		case 'L':
+			characters = {
+				"  _    ",
+				" | |   ",
+				" | |__ ",
+				" |____|",
+			};
 			break;
 		case 'M':
+			characters = {
+				"  __  __ ",
+				" |  \\/  |",
+				" | |\\/| |",
+				" |_|  |_|",
+			};
 			break;
 		case 'N':
+			characters = {
+				"  _   _ ",
+				" | \\ | |",
+				" |  \\  |",
+				" |_| \\_|",
+			};
 			break;
 		case 'O':
+			characters = {
+				"   ___  ",
+				"  / _ \\ ",
+				" | (_) |",
+				"  \\___/ ",
+			};
 			break;
 		case 'P':
+			characters = {
+				"  ___ ",
+				" | _ \\",
+				" |  _/",
+				" |_|  ",
+			};
 			break;
 		case 'Q':
+			characters = {
+				"   ___  ",
+				"  / _ \\ ",
+				" | (_) |",
+				"  \\__\\_\\",
+			};
 			break;
 		case 'R':
+			characters = {
+				"  ___ ",
+				" | _ \\",
+				" |   /",
+				" |_|_\\",
+			};
 			break;
 		case 'S':
+			characters = {
+				"  ___ ",
+				" / __|",
+				" \\__ \\",
+				" |___/",
+			};
 			break;
 		case 'T':
+			characters = {
+				"  _____  ",
+				" |_   _| ",
+				"   | |   ",
+				"   |_|   ",
+			};
 			break;
 		case 'U':
+			characters = {
+				"  _   _ ",
+				" | | | |",
+				" | |_| |",
+				"  \\___/ ",
+			};
 			break;
 		case 'V':
+			characters = {
+				" _     _",
+				" \\ \\ / /",
+				"  \\ V / ",
+				"   \\_/  ",
+			};
 			break;
 		case 'W':
+			characters = {
+				"  _      __",
+				" \\ \\    / /",
+				"  \\ \\/\\/ / ",
+				"   \\_/\\_/  ",
+			};
 			break;
 		case 'X':
+			characters = {
+				" __  __",
+				" \\ \\/ /",
+				"  >  < ",
+				" /_/\\_\\",
+			};
 			break;
 		case 'Y':
+			characters = {
+				"  _   __",
+				" \\ \\ / /",
+				"  \\ V / ",
+				"   |_|  ",
+			};
 			break;
 		case 'Z':
+			characters = {
+				"  ___    ",
+				" |_  /   ",
+				"  / /    ",
+				" /___|   "
+			};
+			break;
+		case '1':
+			characters = {
+				"  _  ",
+				" / | ",
+				" | | ",
+				" |_| "
+			};
+			break;
+		case '2':
+			characters = {
+				"  ___  ",
+				" |_  ) ",
+				"  / /  ",
+				" /___| "
+			};
+			break;
+		case '3':
+			characters = {
+				"  ____ ",
+				" |__ / ",
+				"  |_ \\ ",
+				" |___/ "
+			};
+			break;
+		case '4':
+			characters = {
+				"  _ _   ",
+				" | | |  ",
+				" |_  _ |",
+				"   |_|  "
+			};
+			break;
+		case '5':
+			characters = {
+				"  ___  ",
+				" | __| ",
+				" |__ \\ ",
+				" |___/ "
+			};
+			break;
+		case '6':
+			characters = {
+				"   __  ",
+				"  / /  ",
+				" / _ \\ ",
+				" \\___/ "
+			};
+			break;
+		case '7':
+			characters = {
+				"  ____ ",
+				" |__  |",
+				"   / / ",
+				"  /_/  "
+			};
+			break;
+		case '8':
+			characters = {
+				"  ___  ",
+				" ( _ ) ",
+				" / _ \\ ",
+				" \\___/ "
+			};
+			break;
+		case '9':
+			characters = {
+				"  ___  ",
+				" / _ \\ ",
+				" \\_, / ",
+				"  /_/  "
+			};
+			break;
+		case '0':
+			characters = {
+				"   __  ",
+				"  /  \\ ",
+				" | () |",
+				"  \\__/ "
+			};
 			break;
 		}
 
-		return letters;
+		return characters;
 	}
 };

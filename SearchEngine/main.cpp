@@ -13,7 +13,7 @@
 int main()
 {
 	//auto m = main_page();
-	//m.cout_stylized_word("A");
+	//m.cout_stylized_word("ab");
 	//return EXIT_SUCCESS;
 
 	// I don't remember why i implemented an events class. I had an idea and next day i forgot about it
