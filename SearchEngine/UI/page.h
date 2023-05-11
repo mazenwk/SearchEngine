@@ -447,6 +447,18 @@ private:
 				"  \\__/ "
 			};
 			break;
+		case ' ':
+			characters = {
+				"  ",
+				"  ",
+				"  ",
+				"  "
+			};
+			break;
+		default:
+			characters = {
+				"????"
+			};
 		}
 
 		return characters;

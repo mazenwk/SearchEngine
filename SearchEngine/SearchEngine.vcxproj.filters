@@ -99,6 +99,9 @@
     <ClCompile Include="UI\webpage_page.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UI\initialization_page.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ui\main_page.h">
@@ -147,6 +150,9 @@
       <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="UI\webpage_page.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\initialization_page.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

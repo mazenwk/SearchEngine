@@ -138,6 +138,7 @@
     <ClCompile Include="Models\webpage.cpp" />
     <ClCompile Include="Models\web_graph.cpp" />
     <ClCompile Include="Models\web_graph_node.cpp" />
+    <ClCompile Include="UI\initialization_page.cpp" />
     <ClCompile Include="ui\main_page.cpp" />
     <ClCompile Include="ui\page.cpp" />
     <ClCompile Include="ui\result_widget.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Models\webpage.h" />
     <ClInclude Include="Models\web_graph.h" />
     <ClInclude Include="Models\web_graph_node.h" />
+    <ClInclude Include="UI\initialization_page.h" />
     <ClInclude Include="ui\main_page.h" />
     <ClInclude Include="ui\page.h" />
     <ClInclude Include="ui\result_widget.h" />

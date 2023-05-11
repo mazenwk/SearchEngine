@@ -10,10 +10,17 @@ public:
 
 	void display() {
 		clear_page();
-		auto name = page_.get_name();
-		cout_stylized_word(name);
+		cout_stylized_word(page_.get_name());
+		std::cout << "_________________________________________________________________________________________________________________\n";
 
-		std::cout << "\n\n\nType b and press enter to go back\n";
+		std::string keywords = "";
+		for (const auto& keyword : page_.get_keywords()) {
+			keywords += keyword + "\t";
+		}
+		std::cout << keywords;
+
+		std::cout << "\n\nType b and press enter to go back";
+		std::cout << "\n";
 	}
 
 private:

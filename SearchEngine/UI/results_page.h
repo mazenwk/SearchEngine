@@ -162,7 +162,7 @@ private:
 	/// <summary>
 	/// Gets the next input
 	/// </summary>
-	void get_input()
+	void get_input(short x = -1, short y = -1)
 	{
 		set_cursor_at_input();
 

@@ -6,6 +6,7 @@
 
 #include "ui/main_page.h"
 #include "ui/results_page.h"
+#include "ui/initialization_page.h"
 
 #include "events/event.h"
 #include "events/update_webgraph_event_listener.h"
@@ -31,6 +32,9 @@ int main()
 	Consider adding support for different types of queries.
 	For example, you could allow users to search for specific keywords, phrases, or even entire sentences.
 	You could also allow users to filter results by various criteria such as date, relevance, or popularity.*/
+
+	auto ip = initialization_page();
+	ip.display();
 
 	auto wps = initializer::initalize_webpages();
 	auto wg = initializer::initialize_web_graph(wps);

@@ -75,6 +75,7 @@ private:
 	{
 		// todo: fix to work on *inuxes
 		cout_centered("Input 'exit' or 'quit' to exit the application");
+		cout_centered("Input '*' to display all results unfiltered and unranked");
 		cout_centered("WARNING: THIS APP ONLY WORKS ON WINDOWS");
 	}
 };
