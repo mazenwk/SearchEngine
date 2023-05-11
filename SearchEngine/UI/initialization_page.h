@@ -61,7 +61,7 @@ private:
 	}
 
 	void display_loading_bar() {
-		cout_centered("Loading");
+		//cout_centered("Loading");
 		std::cout << "[";
 		for (int i = 0; i < 118; ++i) {
 			std::cout << " ";
@@ -70,7 +70,7 @@ private:
 		std::cout << "]";
 
 		for (int i = 1; i <= 118; ++i) {
-			set_cursor_pos(i, 16);
+			set_cursor_pos(i, 15);
 			std::cout << "=";
 			std::this_thread::sleep_for(std::chrono::milliseconds(25));
 		}
