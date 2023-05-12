@@ -19,7 +19,6 @@ int main()
 	auto ip = initialization_page();
 	ip.display();
 
-
 	auto mp = main_page();
 	mp.display();
 	auto query = mp.get_search_query();
