@@ -6,14 +6,14 @@
 #include <chrono>
 #include <thread>
 
-#include "page.h";
+#include "page.h"
 
 class initialization_page : page
 {
 public:
 	void display() {
 		std::string warning = "Please ensure console width is at least 120 wide";
-		int line_width = 120 - warning.size() - 2;
+		int line_width = 120 - static_cast<int>(warning.size()) - 2;
 
 		display_vertical_spacing(14);
 		std::cout << "|";
@@ -23,10 +23,13 @@ public:
 		std::cout << "|";
 		std::cout << '\n';
 
-		display_loading_bar();
+		//display_loading_bar();
+		display_warning();
+		std::cout << "\n";
 
+		cout_centered("Press enter to continue");
 		while (true) {
-			set_cursor_pos(60, 17);
+			set_cursor_pos(60, 18);
 			char c = std::cin.get();  // Read a character from the input
 
 			if (c == '\n') {
@@ -72,8 +75,17 @@ private:
 		for (int i = 1; i <= 118; ++i) {
 			set_cursor_pos(i, 15);
 			std::cout << "=";
-			std::this_thread::sleep_for(std::chrono::milliseconds(25));
+			std::this_thread::sleep_for(std::chrono::milliseconds(15));
 		}
+	}
+
+	/// <summary>
+	/// Displays warnings centered
+	/// </summary>
+	void display_warning()
+	{
+		// todo: fix to work on *inuxes
+		cout_centered("WARNING: THIS APP ONLY WORKS ON WINDOWS");
 	}
 };
 
