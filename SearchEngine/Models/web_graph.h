@@ -1,8 +1,10 @@
 #pragma once
 #include <algorithm>
 #include <iostream>
-#include <unordered_map>
 #include <vector>
+#include <unordered_map>
+#include <map>
+#include <set>
 
 #include "web_graph_node.h"
 
@@ -28,7 +30,7 @@ public:
 	/// </summary>
 	/// <param name="nodes">The new graph nodes</param>
 	void set_nodes(const std::vector<web_graph_node>& nodes) {
-		for (const auto node : nodes) {
+		for (auto node : nodes) {
 			nodes_map_[node.get_page().get_url()] = node;
 		}
 	}
@@ -79,13 +81,76 @@ public:
 		return nodes_map_[url].get_page();
 	}
 
+	void calculate_page_ranks(int iterations) {
+		const auto nodes_count = nodes_map_.size();
+		std::unordered_map<std::string, double> previous_ranks;
+
+		const double initial_rank = 1.0 / nodes_count;
+
+		for (auto kvp : nodes_map_) {
+			previous_ranks[kvp.first] = initial_rank;
+		}
+
+		std::unordered_map<std::string, double> current_ranks;
+
+		for (auto kvp : nodes_map_) {
+			current_ranks[kvp.first] = 0;
+		}
+
+		for (size_t i = 0; i < iterations; i++) {
+			for (auto& kvp : nodes_map_) {
+				auto& current_node = kvp.second;
+				std::vector<web_graph_node> redirecting_nodes;
+
+				for (auto& kvp2 : nodes_map_) {
+					auto& node = kvp2.second;
+					if (current_node == node) {
+						continue;
+					}
+
+					auto edges = node.get_edges();
+					auto it = std::find(edges.begin(), edges.end(), current_node);
+
+					if (it != edges.end()) {
+						redirecting_nodes.push_back(node);
+					}
+				}
+
+				double new_rank = 0.0;
+				for (auto& node : redirecting_nodes) {
+					int outgoing_links = static_cast<int>(node.get_edges().size());
+					double previous_rank = previous_ranks[node.get_page().get_url()];
+					new_rank += previous_rank / outgoing_links;
+				}
+
+				current_ranks[current_node.get_page().get_url()] = new_rank;
+			}
+
+			previous_ranks = current_ranks;
+		}
+
+		std::multimap<double, std::string> swapped_ranks_map;
+
+		// Swap keys and values
+		for (const auto& kvp : current_ranks) {
+			swapped_ranks_map.insert(std::make_pair(kvp.second, kvp.first));
+		}
+
+		int final_rank = 1;
+		for (const auto& kvp : swapped_ranks_map) {
+			auto& page = nodes_map_[kvp.second].get_page();
+			page.set_webpage_rank(final_rank++);
+		}
+	}
+
+
 	/// <summary>
 	/// Prints the graph in a visual way
 	/// </summary>
 	void print_web_graph()
 	{
 		for (const auto kvp : nodes_map_) {
-			const auto node = kvp.second;
+			auto node = kvp.second;
 			std::cout << node.get_page().get_url() << ' ';
 
 			for (auto edge : node.get_edges())

@@ -49,7 +49,7 @@ public:
 	/// Gets the webpage info
 	/// </summary>
 	/// <returns>The webpage info</returns>
-	webpage get_page() const { return page_; }
+	webpage& get_page() { return page_; }
 
 	/// <summary>
 	/// Sets the webpage info
@@ -61,7 +61,7 @@ public:
 	/// Gets the list of nodes connected to this node
 	/// </summary>
 	/// <returns>The list of connected nodes</returns>
-	std::vector<web_graph_node> get_edges() const { return edges_; }
+	std::vector<web_graph_node> get_edges() { return edges_; }
 
 	/// <summary>
 	/// Adds an edge to the list of nodes connected to this node.

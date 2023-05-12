@@ -117,7 +117,13 @@ public:
 	/// The webpage rank
 	/// </summary>
 	/// <returns>The webpage rank. Used for sorting</returns>
-	int get_webpage_rank() {}
+	double get_webpage_rank() { return page_rank_; }
+
+	/// <summary>
+	/// Sets the webpage page rank
+	/// </summary>
+	/// <param name="rank">The new page rank</param>
+	void set_webpage_rank(int rank) { page_rank_ = rank; }
 
 	/// <summary>
 	/// The webpage score
@@ -140,6 +146,11 @@ private:
 	/// The webpage impressions
 	/// </summary>
 	int impressions_ = 0;
+
+	/// <summary>
+	/// The webpage rank
+	/// </summary>
+	int page_rank_ = 0;
 
 	/// <summary>
 	/// The webpage keywords
