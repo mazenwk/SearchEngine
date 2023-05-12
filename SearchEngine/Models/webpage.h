@@ -117,7 +117,7 @@ public:
 	/// The webpage rank
 	/// </summary>
 	/// <returns>The webpage rank. Used for sorting</returns>
-	double get_webpage_rank() { return page_rank_; }
+	int get_webpage_rank() { return page_rank_; }
 
 	/// <summary>
 	/// Sets the webpage page rank

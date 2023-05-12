@@ -39,7 +39,7 @@ public:
 		std::vector<result> results;
 
 		results = collect_results(query);
-		results = rank_results(results);
+		rank_results(results);
 
 		return results;
 	}
@@ -76,6 +76,7 @@ private:
 
 			res.set_name(page.get_name());
 			res.set_url(page.get_url());
+			res.set_rank(page.get_webpage_rank());
 
 			for (auto keyword : page.get_keywords()) {
 				if (is_keyword_relevant(keyword, query)) {
@@ -92,11 +93,8 @@ private:
 		return collected_results;
 	};
 
-	static std::vector<result> rank_results(std::vector<result>& results) {
-		std::vector<result>& ranked_results = results;
-
-
-		return ranked_results;
+	static void rank_results(std::vector<result>& results) {
+		std::sort(results.begin(), results.end(), [](const result& r1, const result& r2) { return r1.get_rank() > r2.get_rank(); });
 	}
 
 	/// <summary>

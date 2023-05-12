@@ -77,72 +77,95 @@ public:
 		}
 	}
 
+	/// <summary>
+	/// Gets the webpage info
+	/// </summary>
+	/// <param name="url">The webpage url</param>
+	/// <returns>The webpage info (page object)</returns>
 	webpage get_webpage_info(const std::string& url) {
 		return nodes_map_[url].get_page();
 	}
 
+	/// <summary>
+	/// Calculates the page ranks a number of times based on the given iterations
+	/// </summary>
+	/// <param name="iterations">The number of iterations to go through while calculating the page ranks</param>
 	void calculate_page_ranks(int iterations) {
 		const auto nodes_count = nodes_map_.size();
-		std::unordered_map<std::string, double> previous_ranks;
 
+		// Store the previous ranks of web pages
+		std::unordered_map<std::string, double> previous_ranks;
+		previous_ranks.reserve(nodes_count);
+
+		// Calculate the initial rank for each web page
 		const double initial_rank = 1.0 / nodes_count;
 
-		for (auto kvp : nodes_map_) {
-			previous_ranks[kvp.first] = initial_rank;
+		// Initialize previous ranks for each web page
+		for (const auto& kvp : nodes_map_) {
+			previous_ranks.insert({ kvp.first, initial_rank });
 		}
 
+		// Store the current ranks of web pages
 		std::unordered_map<std::string, double> current_ranks;
+		current_ranks.reserve(nodes_count);
 
-		for (auto kvp : nodes_map_) {
-			current_ranks[kvp.first] = 0;
+		// Initialize current ranks to 0.0 for each web page
+		for (const auto& kvp : nodes_map_) {
+			current_ranks.insert({ kvp.first, 0.0 });
 		}
 
+		// Iterate over the specified number of iterations
 		for (size_t i = 0; i < iterations; i++) {
-			for (auto& kvp : nodes_map_) {
-				auto& current_node = kvp.second;
+			// Calculate the new rank for each web page
+			for (auto it = nodes_map_.begin(); it != nodes_map_.end(); ++it) {
+				auto& current_node = it->second;
 				std::vector<web_graph_node> redirecting_nodes;
+				const auto& current_node_edges = current_node.get_edges();
 
-				for (auto& kvp2 : nodes_map_) {
-					auto& node = kvp2.second;
-					if (current_node == node) {
-						continue;
-					}
-
-					auto edges = node.get_edges();
-					auto it = std::find(edges.begin(), edges.end(), current_node);
-
-					if (it != edges.end()) {
-						redirecting_nodes.push_back(node);
+				// Find the web pages that redirect to the current web page
+				for (auto it2 = nodes_map_.begin(); it2 != nodes_map_.end(); ++it2) {
+					if (it != it2) {
+						auto& node = it2->second;
+						const auto& edges = node.get_edges();
+						if (std::find(edges.begin(), edges.end(), current_node) != edges.end()) {
+							redirecting_nodes.push_back(node);
+						}
 					}
 				}
 
 				double new_rank = 0.0;
 				for (auto& node : redirecting_nodes) {
-					int outgoing_links = static_cast<int>(node.get_edges().size());
-					double previous_rank = previous_ranks[node.get_page().get_url()];
+					const auto outgoing_links = static_cast<int>(node.get_edges().size());
+					const double previous_rank = previous_ranks[node.get_page().get_url()];
+
+					// Update the new rank based on each redirecting web page
 					new_rank += previous_rank / outgoing_links;
 				}
 
-				current_ranks[current_node.get_page().get_url()] = new_rank;
+				// Update the current rank for the current web page
+				current_ranks[it->first] = new_rank;
 			}
 
-			previous_ranks = current_ranks;
+			// Update the previous ranks with the current ranks for the next iteration
+			std::swap(previous_ranks, current_ranks);
 		}
 
+		// Create a multimap to swap keys and values (rank and URL)
+		// Multimap to allow for duplicates in case 2 have the same order
 		std::multimap<double, std::string> swapped_ranks_map;
 
-		// Swap keys and values
-		for (const auto& kvp : current_ranks) {
-			swapped_ranks_map.insert(std::make_pair(kvp.second, kvp.first));
+		// Swap keys and values by inserting the previous ranks into the multimap
+		for (const auto& kvp : previous_ranks) {
+			swapped_ranks_map.insert({ kvp.second, kvp.first });
 		}
 
+		// Assign the final ranks to the web pages based on the multimap order
 		int final_rank = 1;
 		for (const auto& kvp : swapped_ranks_map) {
 			auto& page = nodes_map_[kvp.second].get_page();
 			page.set_webpage_rank(final_rank++);
 		}
 	}
-
 
 	/// <summary>
 	/// Prints the graph in a visual way

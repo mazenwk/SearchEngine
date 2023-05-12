@@ -49,6 +49,18 @@ public:
 	void set_url(const std::string& u) { url_ = u; }
 
 	/// <summary>
+	/// Gets the result rank
+	/// </summary>
+	/// <returns>The result rank</returns>
+	int get_rank() const { return rank_; }
+
+	/// <summary>
+	/// Sets the result rank
+	/// </summary>
+	/// <param name="rank">The new result rank</param>
+	void set_rank(const int rank) { rank_ = rank; }
+
+	/// <summary>
 	/// Returns the result website relevant keywords
 	/// </summary>
 	std::vector<std::string> get_relevant_keywords() const { return relevant_keywords_; }
@@ -92,6 +104,11 @@ private:
 	/// The result website URL
 	/// </summary>
 	std::string url_{};
+
+	/// <summary>
+	/// The result rank
+	/// </summary>
+	int rank_ = -1;
 
 	/// <summary>
 	/// The result website relevant keywords

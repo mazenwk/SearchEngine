@@ -50,31 +50,25 @@ void run();
 
 int main()
 {
-	test();
+	//test();
 
-	//run();
+	run();
 	return EXIT_SUCCESS;
 }
 
 void run() {
-	//auto m = main_page();
-	//m.cout_stylized_word("ab");
-	//return EXIT_SUCCESS;
-
 	// I don't remember why i implemented an events class. I had an idea and next day i forgot about it
 	//event update_webgrapgh_event;
 	//update_webgraph_event_listener update_listener;
-
 	//update_webgrapgh_event.attach(&update_listener);
-
 	//update_webgrapgh_event.trigger();
-
-	//return 0;
 
 	// TOOD: Check files existence before launching
 
 	auto wps = initializer::initalize_webpages();
 	auto wg = initializer::initialize_web_graph(wps);
+	wg.calculate_page_ranks(2);
+	wg.print_web_graph();
 	search_engine::set_web_graph(wg);
 
 	auto ip = initialization_page();
