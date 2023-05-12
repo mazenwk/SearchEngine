@@ -11,9 +11,9 @@
 int main()
 {
 	// TOOD: Check files existence before launching
-
 	auto wps = initializer::initalize_webpages();
 	auto wg = initializer::initialize_web_graph(wps);
+	initializer::load_data(wg);
 	wg.calculate_page_ranks(2);
 	search_engine::set_web_graph(wg);
 
@@ -28,5 +28,6 @@ int main()
 	auto rp = results_page();
 	rp.search(query);
 
+	initializer::save_data(search_engine::get_web_graph());
 	return EXIT_SUCCESS;
 }

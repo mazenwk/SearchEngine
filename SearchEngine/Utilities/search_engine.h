@@ -45,11 +45,13 @@ public:
 	}
 
 	static void display_webpage(const std::string& url) {
-		auto page = webgraph.get_webpage_info(url);
+		auto& page = webgraph.get_webpage_info(url);
 		page.increment_click_throughs();
 		webpage_page wbp(page);
 		wbp.display();
 	}
+
+	static web_graph& get_web_graph() { return webgraph; }
 
 private:
 	/// <summary>
@@ -65,9 +67,9 @@ private:
 	static std::vector<result> collect_results(const std::string& query) {
 		std::vector<result> collected_results;
 
-		for (const auto kvp : webgraph.get_nodes_map()) {
-			auto node = kvp.second;
-			auto page = node.get_page();
+		for (auto kvp : webgraph.get_nodes_map()) {
+			auto& node = kvp.second;
+			auto& page = node.get_page();
 
 			if (query != "*" && !is_webpage_relevant(page.get_keywords(), query)) {
 				continue;

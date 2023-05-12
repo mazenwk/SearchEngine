@@ -67,6 +67,45 @@ public:
 		return wg;
 	}
 
+	static void load_data(web_graph& wg) {
+		auto data = files_manager::read_csv_file("resources/data.csv");
+
+		if (data.empty()) {
+			return;
+		}
+
+		auto& nodes = wg.get_nodes_map();
+
+		for (auto& website : data) {
+			auto& page = nodes[website[0]].get_page();
+			page.set_impressions(std::stoi(website[1]));
+			page.set_click_throughs(std::stoi(website[2]));
+			page.set_webpage_rank(std::stoi(website[3]));
+		}
+
+		for (auto& kvp : wg.get_nodes_map()) {
+			auto node = kvp.second;
+			auto page = node.get_page();
+		}
+	}
+
+	static void save_data(web_graph& wg) {
+		std::string data;
+
+		for (auto& kvp : wg.get_nodes_map()) {
+			auto node = kvp.second;
+			auto page = node.get_page();
+
+			data += page.get_url() + ',';
+			data += std::to_string(page.get_impressions()) + ',';
+			data += std::to_string(page.get_click_throughs()) + ',';
+			data += std::to_string(page.get_webpage_rank()) + ',';
+
+			data += '\n';
+		}
+
+		files_manager::save_to_csv("resources/data.csv", data);
+	}
 private:
 	/// <summary>
 	/// Initializes the given webpages map with a pair consiting of the url and the webpage object

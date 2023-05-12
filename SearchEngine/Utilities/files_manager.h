@@ -19,7 +19,9 @@ namespace files_manager {
 		if (!file.is_open())
 		{
 			// TODO: Custom exceptions
-			std::cerr << "Cannot open file: " << file_name << '\n';
+			if (file_name != "resources/data.csv") {
+				std::cerr << "Cannot open file: " << file_name << '\n';
+			}
 			return data;
 		}
 
@@ -41,8 +43,20 @@ namespace files_manager {
 		return data;
 	}
 
-	static void write_csv_file(const std::string& file_name, const std::string content) {
+	static void load_from_csv() {
 
+	}
+
+	static void save_to_csv(std::string file_name, std::string data) {
+		std::ofstream file(file_name);
+
+		if (file.is_open()) {
+			file << data;
+			file.close();
+		}
+		else {
+			std::cerr << "Failed to open the file.\n";
+		}
 	}
 }
 

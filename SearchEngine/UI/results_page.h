@@ -10,6 +10,7 @@
 #include "../Models/web_graph.h"
 
 #include "../Utilities/search_engine.h"
+#include "../Utilities/initializer.h"
 
 /// <summary>
 /// The results page. Displays the search query results
@@ -183,6 +184,7 @@ private:
 			break;
 		case 'q':
 			clear_page();
+			initializer::save_data(search_engine::get_web_graph());
 			exit(0);
 			break;
 		case 'b':

@@ -23,7 +23,7 @@ public:
 	/// Gets the graph nodes map. Each node represents a key value pair of {url,webpage}
 	/// </summary>
 	/// <returns>The graph nodes map</returns>
-	const std::unordered_map<std::string, web_graph_node>& get_nodes_map() const { return nodes_map_; }
+	std::unordered_map<std::string, web_graph_node>& get_nodes_map() { return nodes_map_; }
 
 	/// <summary>
 	/// Sets the graph nodes in the nodes map. Each node represents a webpage
@@ -82,7 +82,7 @@ public:
 	/// </summary>
 	/// <param name="url">The webpage url</param>
 	/// <returns>The webpage info (page object)</returns>
-	webpage get_webpage_info(const std::string& url) {
+	webpage& get_webpage_info(const std::string& url) {
 		return nodes_map_[url].get_page();
 	}
 
