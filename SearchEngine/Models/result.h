@@ -52,13 +52,13 @@ public:
 	/// Gets the result rank
 	/// </summary>
 	/// <returns>The result rank</returns>
-	int get_rank() const { return rank_; }
+	int get_score() const { return score_; }
 
 	/// <summary>
 	/// Sets the result rank
 	/// </summary>
 	/// <param name="rank">The new result rank</param>
-	void set_rank(const int rank) { rank_ = rank; }
+	void set_score(const int score) { score_ = score; }
 
 	/// <summary>
 	/// Returns the result website relevant keywords
@@ -108,7 +108,7 @@ private:
 	/// <summary>
 	/// The result rank
 	/// </summary>
-	int rank_ = -1;
+	int score_ = -1;
 
 	/// <summary>
 	/// The result website relevant keywords

@@ -46,6 +46,7 @@ public:
 
 	static void display_webpage(const std::string& url) {
 		auto page = webgraph.get_webpage_info(url);
+		page.increment_click_throughs();
 		webpage_page wbp(page);
 		wbp.display();
 	}
@@ -72,11 +73,13 @@ private:
 				continue;
 			}
 
+			page.increment_impressions();
+
 			result res;
 
 			res.set_name(page.get_name());
 			res.set_url(page.get_url());
-			res.set_rank(page.get_webpage_rank());
+			res.set_score(page.get_webpage_score());
 
 			for (auto keyword : page.get_keywords()) {
 				if (is_keyword_relevant(keyword, query)) {
@@ -94,7 +97,7 @@ private:
 	};
 
 	static void rank_results(std::vector<result>& results) {
-		std::sort(results.begin(), results.end(), [](const result& r1, const result& r2) { return r1.get_rank() > r2.get_rank(); });
+		std::sort(results.begin(), results.end(), [](const result& r1, const result& r2) { return r1.get_score() > r2.get_score(); });
 	}
 
 	/// <summary>

@@ -78,6 +78,52 @@ public:
 	void set_impressions(int impressions) { impressions_ = impressions; }
 
 	/// <summary>
+	/// Incremenets the number of impressions of the webpage.
+	/// </summary>
+	void increment_impressions() { impressions_++; }
+
+	/// <summary>
+	/// Gets the number of click throughs of the webpage.
+	/// </summary>
+	/// <returns>The number of click throughs.</returns>
+	int get_click_throughs() const { return click_throughs_; }
+
+	/// <summary>
+	/// Sets the number of click throughs of the webpage.
+	/// </summary>
+	/// <param name="impressions">The new number of click throughs.</param>
+	void set_click_throughs(int click_throughs) { click_throughs_ = click_throughs; }
+
+	/// <summary>
+	/// Incremenets the number of click throughs of the webpage.
+	/// </summary>
+	void increment_click_throughs() { click_throughs_++; }
+
+	/// <summary>
+	/// The webpage rank
+	/// </summary>
+	/// <returns>The webpage rank. Used for sorting</returns>
+	int get_webpage_rank() { return page_rank_; }
+
+	/// <summary>
+	/// Sets the webpage page rank
+	/// </summary>
+	/// <param name="rank">The new page rank</param>
+	void set_webpage_rank(int rank) { page_rank_ = rank; }
+
+	double get_CTR() {
+		return (click_throughs_ / impressions_) * 100;
+	}
+
+	/// <summary>
+	/// The webpage score
+	/// </summary>
+	/// <returns>The webpage score. Used for sorting</returns>
+	double get_webpage_score() {
+		return (0.4 * page_rank_ + (((1 - ((0.1 * impressions_) / (1 + (0.1 * impressions_)))) * page_rank_) + (((0.1 * impressions_) / (1 + (0.1 * impressions_))) * get_CTR())) * 0.6);
+	}
+
+	/// <summary>
 	/// Gets a reference to the vector of keywords associated with the webpage.
 	/// </summary>
 	/// <returns>A reference to the vector of keywords.</returns>
@@ -113,24 +159,6 @@ public:
 	/// <param name="links">The vector of links to set.</param>
 	void set_links(const std::vector<std::string>& links) { links_ = links; }
 
-	/// <summary>
-	/// The webpage rank
-	/// </summary>
-	/// <returns>The webpage rank. Used for sorting</returns>
-	int get_webpage_rank() { return page_rank_; }
-
-	/// <summary>
-	/// Sets the webpage page rank
-	/// </summary>
-	/// <param name="rank">The new page rank</param>
-	void set_webpage_rank(int rank) { page_rank_ = rank; }
-
-	/// <summary>
-	/// The webpage score
-	/// </summary>
-	/// <returns>The webpage score. Used for sorting</returns>
-	int get_webpage_score() {}
-
 private:
 	/// <summary>
 	/// The webpage name
@@ -146,6 +174,11 @@ private:
 	/// The webpage impressions
 	/// </summary>
 	int impressions_ = 0;
+
+	/// <summary>
+	/// Number of clickthroughs
+	/// </summary>
+	int click_throughs_ = 0;
 
 	/// <summary>
 	/// The webpage rank
