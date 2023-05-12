@@ -30,14 +30,8 @@
     <Filter Include="Header Files\Errors">
       <UniqueIdentifier>{e739d678-9f3a-4766-94c9-9703ceafcaac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Events">
-      <UniqueIdentifier>{eafa59f8-d5cd-4cd1-9881-9b523db57eda}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Errors">
       <UniqueIdentifier>{bb86c38f-ce5e-42c3-912d-f23ff7342860}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Events">
-      <UniqueIdentifier>{45d9aa03-a134-4105-b04d-faf325f5d18e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
@@ -84,18 +78,6 @@
     <ClCompile Include="Models\result.cpp">
       <Filter>Source Files\Models</Filter>
     </ClCompile>
-    <ClCompile Include="Events\event.cpp">
-      <Filter>Source Files\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\observer.cpp">
-      <Filter>Source Files\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\subject.cpp">
-      <Filter>Source Files\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\update_webgraph_event_listener.cpp">
-      <Filter>Source Files\Events</Filter>
-    </ClCompile>
     <ClCompile Include="UI\webpage_page.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
@@ -136,18 +118,6 @@
     </ClInclude>
     <ClInclude Include="Models\result.h">
       <Filter>Header Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\event.h">
-      <Filter>Header Files\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\observer.h">
-      <Filter>Header Files\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\subject.h">
-      <Filter>Header Files\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\update_webgraph_event_listener.h">
-      <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="UI\webpage_page.h">
       <Filter>Header Files\UI</Filter>

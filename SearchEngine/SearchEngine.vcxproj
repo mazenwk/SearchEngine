@@ -129,10 +129,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Events\event.cpp" />
-    <ClCompile Include="Events\observer.cpp" />
-    <ClCompile Include="Events\subject.cpp" />
-    <ClCompile Include="Events\update_webgraph_event_listener.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Models\result.cpp" />
     <ClCompile Include="Models\webpage.cpp" />
@@ -149,10 +145,6 @@
     <ClCompile Include="Utilities\search_engine.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Events\event.h" />
-    <ClInclude Include="Events\observer.h" />
-    <ClInclude Include="Events\subject.h" />
-    <ClInclude Include="Events\update_webgraph_event_listener.h" />
     <ClInclude Include="Models\result.h" />
     <ClInclude Include="Models\webpage.h" />
     <ClInclude Include="Models\web_graph.h" />
