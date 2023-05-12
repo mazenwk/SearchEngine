@@ -10,7 +10,6 @@
 
 int main()
 {
-	// TOOD: Check files existence before launching
 	auto wps = initializer::initalize_webpages();
 	auto wg = initializer::initialize_web_graph(wps);
 	initializer::load_data(wg);
