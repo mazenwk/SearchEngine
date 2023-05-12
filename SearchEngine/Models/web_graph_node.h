@@ -19,13 +19,13 @@ public:
 	/// Creates a webpage node with the given webpage
 	/// </summary>
 	/// <param name="wp">The webpage info</param>
-	web_graph_node(const webpage& wp) : page_(wp) {}
+	web_graph_node(const webpage& wp);
 
 	/// <summary>
 	/// Creates a webpage node with the given webpage url
 	/// </summary>
 	/// <param name="wp">The webpage url</param>
-	web_graph_node(const std::string& u) : page_(webpage(u)) {}
+	web_graph_node(const std::string& u);
 
 	/// <summary>
 	/// Checks whether the given node is equal to the current one or not using the URL
@@ -49,33 +49,31 @@ public:
 	/// Gets the webpage info
 	/// </summary>
 	/// <returns>The webpage info</returns>
-	webpage& get_page() { return page_; }
+	webpage& get_page();
 
 	/// <summary>
 	/// Sets the webpage info
 	/// </summary>
 	/// <param name="page">The webpage info</param>
-	void set_page(const webpage& page) { page_ = page; }
+	void set_page(const webpage& page);
 
 	/// <summary>
 	/// Gets the list of nodes connected to this node
 	/// </summary>
 	/// <returns>The list of connected nodes</returns>
-	std::vector<web_graph_node> get_edges() { return edges_; }
+	std::vector<web_graph_node> get_edges();
 
 	/// <summary>
 	/// Adds an edge to the list of nodes connected to this node.
 	/// </summary>
 	/// <param name="node">The node to add as an edge.</param>
-	void add_edge(const web_graph_node& node) {
-		edges_.push_back(node);
-	}
+	void add_edge(const web_graph_node& node);
 
 	/// <summary>
 	/// Sets the list of nodes connected to this node
 	/// </summary>
 	/// <param name="edges">The list of connected nodes</param>
-	void set_edges(const std::vector<web_graph_node>& edges) { edges_ = edges; }
+	void set_edges(const std::vector<web_graph_node>& edges);
 
 private:
 	/// <summary>
