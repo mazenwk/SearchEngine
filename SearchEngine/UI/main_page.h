@@ -25,6 +25,7 @@ public:
 private:
 	/// <summary>
 	/// Displays the search engine logo centered
+	/// </summary>
 	void display_logo();
 
 	/// <summary>

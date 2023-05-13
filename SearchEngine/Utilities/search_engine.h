@@ -85,6 +85,7 @@ private:
 
 	/// <summary>
 	/// Gets the index of the target string in the given vector
+	/// </summary>
 	/// <param name="words">The wods to search through</param>
 	/// <param name="target_word">The string to search for</param>
 	/// <returns>The index of the string if found, -1 otherwise</returns>
